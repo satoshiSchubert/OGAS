@@ -1,0 +1,9 @@
+# Project exclude paths
+build
+
+*.exe
+*.ilk
+*.dll
+*.pdb
+
+*.exr
