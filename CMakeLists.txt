@@ -6,12 +6,6 @@ project(OGAS)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# find_package(Eigen3 REQUIRED)
-
-# add_subdirectory("thirdparty")
-# add_subdirectory("src")
-
-
 
 ###########################################################################
 # On to OGAS -->
@@ -43,6 +37,7 @@ FILE ( GLOB OGAS_SOURCE
 
 INCLUDE_DIRECTORIES ( src )
 INCLUDE_DIRECTORIES ( src/core )
+INCLUDE_DIRECTORIES ( src/ext/glm/ )
 
 # Visual Studio source folders
 SOURCE_GROUP (accelerators REGULAR_EXPRESSION src/accelerators/.*)
