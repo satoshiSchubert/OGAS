@@ -4,13 +4,6 @@
 #include <vector>
 #include <assert.h>
 
-#include "primitives.h"
-#include "light.h"
-#include "spectrum.h"
-#include "material.h"
-#include "integrator.h"
-#include "sampler.h"
-#include "camera.h"
 #include "glm/glm.hpp"
 
 
@@ -26,7 +19,7 @@ namespace OGAS {
 	const glm::vec3 C_WHITE = glm::vec3(1.0, 1.0, 1.0);
 
 
-	class Film {
+	struct Film {
 	public:
 		Film() {}
 
@@ -37,63 +30,43 @@ namespace OGAS {
 		std::vector<glm::vec3> fragment_buffer_;
 	};
 
-	class Ray {
+
+	struct Isect {
 	public:
-		Ray(glm::vec3 origin, glm::vec3 direction):origin_(origin),direction_(direction) {
-			t_min_ = EPSILON;
-			t_max_ = INF;
+		Isect() {}
+
+		~Isect() {}
+
+	private:
+
+		glm::vec3 pos;
+
+	};
+
+
+	struct Ray {
+		glm::vec3 origin;
+		glm::vec3 direction;
+		float t_min;
+		float t_max;
+		float pdf;
+		Ray(glm::vec3 origin, glm::vec3 direction):origin(origin),direction(direction) {
+			t_min = EPSILON;
+			t_max = INF;
 		}
-
-		~Ray() = default;
-
-		auto getOri() const { return origin_; }
-
-		auto getDir() const { return direction_; }
-
-		auto getTmin() const { return t_min_; }
-
-		auto getTmax() const { return t_max_; }
-
-		auto getPos(float t) const { return origin_ + t * direction_; }
-
+		auto getPos(float t) const { return origin + t * direction; }
 		// same func as getPos()
-		auto operator()(float t)const { return origin_ + t * direction_; }
-
+		auto operator()(float t)const { return origin + t * direction; }
 		bool Update(float t) {
-			if (t > t_min_ && t < t_max_) {
-				t_max_ = t;
+			if (t > t_min && t < t_max) {
+				t_max = t;
 				return true;
 			}
 			return false;
 		}
-
-	private:
-		glm::vec3 origin_, direction_;
-		float t_min_, t_max_;
-
 	};
 	
-	class Scene {
-	public:
-		Scene() {}
-
-		void Construct() {}
-
-		~Scene() {
-			//Clean up
-		}
-	public:
-		Primitive primitive;
-		Light light;
-		Material mat;
-		// ÓÃ integrator = std::make_shared<SamplerIntegrator>()ÊµÀý»¯
-		std::shared_ptr<Integrator> integrator;
-		Film film;
-		Camera camera;
-
-		int spp;
-
-	};
+	
 
 	
 

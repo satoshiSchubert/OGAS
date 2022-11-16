@@ -3,7 +3,6 @@
 namespace OGAS {
 	class Light {
 	public:
-
-		virtual ~Light();
+		Light();
 	};
 }

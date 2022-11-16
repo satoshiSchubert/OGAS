@@ -15,6 +15,12 @@ namespace OGAS {
 		}
 
 		virtual ~Camera();
+		
+		//! \param x: x,
+		//! \param y: y,
+		//! \param AA: antialiasing
+		//! \return generated camera ray.
+		virtual Ray generateRay(int x, int y, bool AA) const = 0;
 
 		auto getHeight() { return height_; }
 
@@ -26,6 +32,8 @@ namespace OGAS {
 			assert(y >= 0 && y < height_);
 			return x + width_ * (height_ - y - 1);//TODO:这里是因为考虑openGL的xy格式吗
 		}
+
+
 
 
 	public:

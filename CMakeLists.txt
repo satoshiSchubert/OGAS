@@ -10,21 +10,20 @@ set(CMAKE_CXX_STANDARD 20)
 ###########################################################################
 # On to OGAS -->
 
-SET ( OGAS_CORE_SOURCE
-  src/core/integrator.cpp
-  src/core/camera.cpp
-  )
+#SET ( GLOB OGAS_CORE_SOURCE
+#  src/core/*.cpp
+#  )
 
-SET ( OGAS_CORE_HEADERS
-  src/core/integrator.h
-  src/core/camera.h
-  )
+#SET ( GLOB OGAS_CORE_HEADERS
+#  src/core/*.h
+#  )
 
 FILE ( GLOB OGAS_SOURCE
   src/accelerators/*
   src/bxdfs/*
   src/cameras/*
   src/commons/*
+  src/core/*
   src/ext/*
   src/filters/*
   src/integrators/*
@@ -58,11 +57,10 @@ SOURCE_GROUP (textures REGULAR_EXPRESSION src/textures/.*)
 ###########################################################################
 # ogas libraries and executables -->
 
-add_library(ogas STATIC
-            ${OGAS_CORE_SOURCE}
-            ${OGAS_CORE_HEADERS}
-            ${OGAS_SOURCE}
-            )
+add_library(ogas STATIC ${OGAS_SOURCE} )
+            #${OGAS_CORE_SOURCE}
+            #${OGAS_CORE_HEADERS}
+
 
 # Need DEBUG
 SET(ALL_OGAS_LIBS
