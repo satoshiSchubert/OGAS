@@ -1,12 +1,14 @@
 #include "SamplerIntegrator.h"
 
-void SamplerIntegrator::Render(const OGAS::Scene& scene) {
+using namespace OGAS;
+
+void SamplerIntegrator::Render(Scene& scene) {
 	// main process
-    for (int y = 0; y < camera_->height(); y++) {
+    for (int y = 0; y < scene.camera.getHeight(); y++) {
         // std::future<Eigen::Vector3f> futures[camera_.width()][spp];
-        for (int x = 0; x < camera_->width(); x++) {
-            for (int k = 0; k < spp; k++) {
-                Ray ray = camera_->GenerateRay(x, y, antialiasing);
+        for (int x = 0; x < scene.camera.getWidth(); x++) {
+            for (int k = 0; k < scene.spp; k++) {
+                Ray ray = scene.camera->GenerateRay(x, y, antialiasing);
                 scene.film.fragment_buffer_[camera_->GetIndex(x, y)] += scene_->Trace(&ray, shading_type);
                 // futures[x][k] = pool.enqueue([&]() {
                 //     return scene_.Trace(&ray);
