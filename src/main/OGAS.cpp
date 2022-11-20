@@ -3,7 +3,7 @@
 std::string filename;
 
 int main() {
-	OGAS::Scene scene;
+	std::shared_ptr<OGAS::Scene> scene;
 	Parser parser;
 	parser.parse(filename, scene);
 	OGAS::SingleImpl::Impl(scene);

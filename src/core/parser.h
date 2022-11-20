@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "commons/RTCommon.h"
+#include <scene.h>
 
 
 class Parser {
@@ -11,7 +12,7 @@ public:
 	/*!
 	*
 	*/
-	void parse(std::string filename, OGAS::Scene &scene) {
+	void parse(std::string filename, std::shared_ptr<OGAS::Scene> scene) {
 
 	}
 

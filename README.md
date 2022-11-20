@@ -1,3 +1,4 @@
 # OGAS
 
-OGAS render engine, under development.
+OGAS renderer under development.
+

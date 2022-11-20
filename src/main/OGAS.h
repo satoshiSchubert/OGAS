@@ -1,6 +1,6 @@
 #pragma once
-#include "commons/RTCommon.h"
 #include "parser.h"
+
 
 namespace OGAS {
 
@@ -8,9 +8,9 @@ namespace OGAS {
 		/*!
 		* Simgle machine implementaion of OGAS
 		*/
-		void Impl(Scene& scene) {
+		void Impl(std::shared_ptr<OGAS::Scene> scene) {
 			// do something
-			scene.integrator->Render(scene);
+			scene->integrator->Render(scene);
 		}
 
 
