@@ -1,6 +1,6 @@
 #pragma once
-#include "commons/RTCommon.h"
-#include <scene.h>
+#include "../commons/RTCommon.h"
+#include "scene.h"
 
 class Scene;
 

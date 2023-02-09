@@ -1,9 +1,11 @@
-#include <commons/RTCommon.h>
+#include "../commons/RTCommon.h"
 
 namespace OGAS {
 	class Material {
 	public:
 		// Integrator Interface
 		virtual ~Material();
+
+		bool hasEmitter();
 	};
 }

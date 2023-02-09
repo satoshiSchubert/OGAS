@@ -1,6 +1,8 @@
 #include "OGAS.h"
 
-std::string filename;
+// 0210:Scene的构建，并由此穿出bvh等的构建
+
+std::string filename = "scene.ini";
 
 int main() {
 	std::shared_ptr<OGAS::Scene> scene;

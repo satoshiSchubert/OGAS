@@ -9,11 +9,14 @@ void SamplerIntegrator::Render(std::shared_ptr<OGAS::Scene> scene) {
         for (int x = 0; x < scene->camera->getWidth(); x++) {
             for (int k = 0; k < scene->spp; k++) {
                 // TODO: 这边应该是sampleray吧？
-                Ray ray = scene->camera->generateRay(x, y, false);
+                Ray ray = scene->camera->GenerateRay(x, y, false);
                 Isect isect;
                 
                 scene->film->fragment_buffer_[scene->camera->getIndex(x, y)] += scene->integrator->Li(ray, scene);
                 
+
+
+
 
                 // futures[x][k] = pool.enqueue([&]() {
                 //     return scene_.Trace(&ray);

@@ -1,4 +1,4 @@
-#include "commons/RTCommon.h"
+#include "../commons/RTCommon.h"
 #include "primitives.h"
 #include "light.h"
 #include "spectrum.h"
@@ -7,6 +7,7 @@
 #include "sampler.h"
 #include "camera.h"
 #include "accelerator.h"
+#include "../accelerators/BVH.h"
 
 namespace OGAS {
 
@@ -21,7 +22,7 @@ namespace OGAS {
 		}
 	public:
 		std::shared_ptr<Primitive> primitive;
-		std::shared_ptr<Light> light;
+		std::vector<std::shared_ptr<Light>> lights;
 		std::shared_ptr<Material> mat;
 		// ÓÃ integrator = std::make_shared<SamplerIntegrator>()ÊµÀý»¯
 		std::shared_ptr<Integrator> integrator;

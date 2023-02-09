@@ -1,5 +1,6 @@
 #pragma once
-#include "commons/RTCommon.h"
+#include "../commons/RTCommon.h"
+#include "../samplers/RandomSampler.h"
 
 namespace OGAS {
 	class Camera {
@@ -20,7 +21,7 @@ namespace OGAS {
 		//! \param y: y,
 		//! \param AA: antialiasing
 		//! \return generated camera ray.
-		virtual Ray generateRay(int x, int y, bool AA) const = 0;
+		virtual Ray GenerateRay(int x, int y, bool AA) const = 0;
 
 		auto getHeight() { return height_; }
 
@@ -33,13 +34,25 @@ namespace OGAS {
 			return x + width_ * (height_ - y - 1);//TODO:这里是因为考虑openGL的xy格式吗
 		}
 
+		glm::dvec2 SampleFilm(int x, int y, bool AA) const {
+			float tangent = std::tan(utils::toRadius(fov_y_) / 2.f);	
 
+			float xx = float(x) + 0.5f, yy = float(y) + 0.5f;
+			if (AA) {
+				xx += RndSampler::NormalRnd();
+				yy += RndSampler::NormalRnd();
+			}
 
+			float xx_ = tangent * aspect_ * (xx - float(width_) / 2.f) / (float(width_) / 2.f);
+			float yy_ = tangent * (yy - float(height_) / 2.f) / (float(height_) / 2.f);
+
+			return glm::dvec2{ xx_, yy_ };
+		}
 
 	public:
 		int height_, width_;
 		float fov_y_;
-		float aspect_;
+		float aspect_; // width / height
 		glm::vec3 camPos_, camDir_, lookAt_, up_, right_;
 
 	};
