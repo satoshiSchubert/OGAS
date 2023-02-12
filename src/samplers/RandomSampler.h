@@ -11,13 +11,9 @@ namespace RndSampler {
         std::normal_distribution<float> normal_distribution_(0.f, 0.5f);
     }
 
-    float UniformRnd() {
-        return uniform_distribution_(random_engine_);
-    }
+    float UniformRnd();
 
-    float NormalRnd() {
-        return normal_distribution_(random_engine_);
-    }
+    float NormalRnd();
 
     glm::dvec2 SampleDisk();
 

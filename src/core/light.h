@@ -1,8 +1,9 @@
+#pragma once
 #include "../commons/RTCommon.h"
 
-namespace OGAS {
-	class Light {
-	public:
-		Light();
-	};
-}
+
+class Light {
+public:
+	Light();
+};
+

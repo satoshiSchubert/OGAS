@@ -9,7 +9,7 @@
 #include "../core/material.h"
 
 
-
+class Material;
 
 const float PI = M_PI;
 const float InvPI = M_1_PI;
@@ -22,39 +22,29 @@ const glm::vec3 C_WHITE = glm::vec3(1.0, 1.0, 1.0);
 // utils func
 namespace utils {
 
-	float toRadius(float alpha) {
-		return alpha / 180.f * M_PI;
-	}
+	float toRadius(float alpha);
 
-	float toDegree(float alpha) {
-		return alpha * 180.f * InvPI;
-	}
-
-
+	float toDegree(float alpha);
 }
+
+enum EIntegratorType {
+	Default,
+	SamplerIntegrator,
+	WhittedIntegrator,
+};
+
 
 struct Timer {
 public:
-	Timer() {
-		start_ = std::chrono::system_clock::now();
-		end_ = std::chrono::system_clock::now();
-	}
+	Timer();
 
-	~Timer() = default;
+	~Timer();
 
-	void StartTimer(const std::string& start_msg) {
-		std::cout << start_msg << "..." << std::endl;
-		start_ = std::chrono::system_clock::now();
-	}
+	void StartTimer(const std::string& start_msg);
 
-	void StopTimer(const std::string& stop_msg) {
-		end_ = std::chrono::system_clock::now();
-		std::cout << stop_msg << ", " << GetTime() << " seconds used." << std::endl;
-	}
+	void StopTimer(const std::string& stop_msg);
 
-	float GetTime() {
-		return float(std::chrono::duration_cast<std::chrono::milliseconds>(end_ - start_).count()) / 1000.f;
-	}
+	float GetTime();
 
 private:
 	std::chrono::time_point<std::chrono::system_clock> start_, end_;
@@ -63,11 +53,9 @@ private:
 
 struct Film {
 public:
-	Film() {}
+	Film();
 
-	~Film() {
-		//Clean up
-	}
+	~Film();
 public:
 	std::vector<glm::vec3> fragment_buffer_;
 };
@@ -82,8 +70,7 @@ public:
 public:
 
 	glm::vec3 pos;
-	Material material;
-
+	std::shared_ptr<Material> mat = nullptr;
 };
 
 
@@ -93,20 +80,11 @@ struct Ray {
 	float t_min;
 	float t_max;
 	float pdf;
-	Ray(glm::vec3 origin, glm::vec3 direction):origin(origin),direction(direction) {
-		t_min = EPSILON;
-		t_max = INF;
-	}
-	auto getPos(float t) const { return origin + t * direction; }
+	Ray(glm::vec3 origin, glm::vec3 direction);
+	auto getPos(float t) const;
 	// same func as getPos()
-	auto operator()(float t)const { return origin + t * direction; }
-	bool Update(float t) {
-		if (t > t_min && t < t_max) {
-			t_max = t;
-			return true;
-		}
-		return false;
-	}
+	auto operator()(float t)const;
+	bool Update(float t);
 };
 	
 	

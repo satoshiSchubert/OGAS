@@ -1,8 +1,6 @@
 #include "integrator.h"
 
-using namespace OGAS;
-
-void SamplerIntegrator::Render(std::shared_ptr<OGAS::Scene> scene) {
+void SamplerIntegrator::Render(std::shared_ptr<Scene> scene) {
     // main process
     for (int y = 0; y < scene->camera->getHeight(); y++) {
         // std::future<Eigen::Vector3f> futures[camera_.width()][spp];
@@ -12,9 +10,7 @@ void SamplerIntegrator::Render(std::shared_ptr<OGAS::Scene> scene) {
                 Ray ray = scene->camera->GenerateRay(x, y, false);
                 Isect isect;
                 
-                scene->film->fragment_buffer_[scene->camera->getIndex(x, y)] += scene->integrator->Li(ray, scene);
-                
-
+                scene->film.fragment_buffer_[scene->camera->getIndex(x, y)] += Li(ray, scene);
 
 
 
@@ -31,11 +27,16 @@ void SamplerIntegrator::Render(std::shared_ptr<OGAS::Scene> scene) {
         //global::UpdateProgress(float(y) / camera_->height());
     }
     //global::UpdateProgress(1.f);
+ 
+    for (auto & pixel:scene->film.fragment_buffer_) {
 
-    for (auto& pixel : scene->film->fragment_buffer_) {
         pixel /= float(scene->spp);
     }
 
 
 
+}
+
+Integrator::~Integrator()
+{
 }

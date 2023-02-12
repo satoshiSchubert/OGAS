@@ -1,7 +1,7 @@
 #include "../core/camera.h"
 
 // pinhole
-class ProjectCamera : public OGAS::Camera {
+class ProjectCamera : public Camera {
 
 public:
     ProjectCamera(glm::vec3& camPos, const glm::vec3& lookAt, const glm::vec3& up,

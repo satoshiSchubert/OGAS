@@ -1,11 +1,12 @@
+#pragma once
 #include "../commons/RTCommon.h"
 
-namespace OGAS {
-	class Material {
-	public:
-		// Integrator Interface
-		virtual ~Material();
 
-		bool hasEmitter();
-	};
-}
+class Material {
+public:
+	// Integrator Interface
+	virtual ~Material();
+
+	bool hasEmitter();
+};
+

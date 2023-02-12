@@ -15,7 +15,7 @@ public:
 	/*!
 	*
 	*/
-	void parse(std::string filename, std::shared_ptr<OGAS::Scene> scene) {
+	void parse(std::string filename, std::shared_ptr<Scene> scene) {
         Timer timer;
         INIReader reader("filename");
         if (reader.ParseError() != 0) {
@@ -38,31 +38,37 @@ public:
         bool use_bvh = reader.GetBoolean("rendering", "use_bvh", true);
 
         std::string shading_type_name = reader.Get("rendering", "shading_type", "depth");
-        Scene::ShadingType shading_type = Scene::kDepth;
-        if (shading_type_name == "uv") {
-            shading_type = Scene::kUv;
-        }
-        else if (shading_type_name == "albedo") {
-            shading_type = Scene::kAlbedo;
-        }
-        else if (shading_type_name == "normal") {
-            shading_type = Scene::kNormal;
-        }
-        else if (shading_type_name == "position") {
-            shading_type = Scene::kPosition;
-        }
-        else if (shading_type_name == "depth") {
-            shading_type = Scene::kDepth;
-        }
-        else if (shading_type_name == "light") {
-            shading_type = Scene::kSampleLight;
-        }
-        else if (shading_type_name == "bsdf") {
-            shading_type = Scene::kSampleBsdf;
-        }
-        else if (shading_type_name == "mis") {
-            shading_type = Scene::kMis;
-        }
+
+        std::string integrator_name = reader.Get("rendering", "integrator", "xxx");
+        // 写个映射函数映射一下
+        scene->IntegratorType = Default; // 后续integrator初始化时读取scene中的信息选择type
+
+        
+        //Scene::ShadingType shading_type = Scene::kDepth;
+        //if (shading_type_name == "uv") {
+        //    shading_type = Scene::kUv;
+        //}
+        //else if (shading_type_name == "albedo") {
+        //    shading_type = Scene::kAlbedo;
+        //}
+        //else if (shading_type_name == "normal") {
+        //    shading_type = Scene::kNormal;
+        //}
+        //else if (shading_type_name == "position") {
+        //    shading_type = Scene::kPosition;
+        //}
+        //else if (shading_type_name == "depth") {
+        //    shading_type = Scene::kDepth;
+        //}
+        //else if (shading_type_name == "light") {
+        //    shading_type = Scene::kSampleLight;
+        //}
+        //else if (shading_type_name == "bsdf") {
+        //    shading_type = Scene::kSampleBsdf;
+        //}
+        //else if (shading_type_name == "mis") {
+        //    shading_type = Scene::kMis;
+        //}
         timer.StopTimer("scene.ini loaded");
 
         timer.StartTimer("\nLoading scene");

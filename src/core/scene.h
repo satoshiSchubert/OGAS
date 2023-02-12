@@ -1,3 +1,4 @@
+#pragma once
 #include "../commons/RTCommon.h"
 #include "primitives.h"
 #include "light.h"
@@ -9,33 +10,31 @@
 #include "accelerator.h"
 #include "../accelerators/BVH.h"
 
-namespace OGAS {
 
-	class Scene {
-	public:
-		Scene() {}
+class Scene {
+public:
+	Scene() {
+	}
 
-		void Construct() {}
+	void Construct() {}
 
-		~Scene() {
-			//Clean up
-		}
-	public:
-		std::shared_ptr<Primitive> primitive;
-		std::vector<std::shared_ptr<Light>> lights;
-		std::shared_ptr<Material> mat;
-		// 用 integrator = std::make_shared<SamplerIntegrator>()实例化
-		std::shared_ptr<Integrator> integrator;
-		std::shared_ptr<Film> film;
-		std::shared_ptr<Camera> camera;
-		std::shared_ptr<Accel> accel;
+	~Scene() {
+		//Clean up
+	}
+public:
 
-		int spp;
+	// 下面的对象都是基类就已经定义完全的
+	Primitive primitive;
+	std::vector<Light> lights;
+	Material material;
+	Film film;	
 
-	};
+	// 下面的基类没有定义完全，有纯虚拟函数，因此需要用指针，初始化时要选择一个确定的子类
+	//std::shared_ptr<Integrator> integrator = std::make_shared<SamplerIntegrator>();
+	EIntegratorType IntegratorType = Default;
+	std::shared_ptr<Camera> camera = nullptr;
+	std::shared_ptr<Accel> accel = nullptr;
 
+	int spp;
 
-
-
-
-}
+};
