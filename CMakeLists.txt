@@ -10,7 +10,8 @@ set(CMAKE_CXX_STANDARD 20)
 #add_library(tiny_obj_loader_lib third_party/tinyobjloader/tiny_obj_loader.cc)
 #add_library(tiny_xml_lib third_party/tinyxml2/tinyxml2.cpp)
 
-file(GLOB_RECURSE SRC src/*.cpp)
+# 这里不能只包含*.cpp,因为有的实现写在头文件里，（虽然正常来说是*.cpp, 因为最关键的文件是o文件，可以通过cpp的include .h找到）
+file(GLOB_RECURSE SRC src/*) 
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 add_executable(OGAS ${SRC})

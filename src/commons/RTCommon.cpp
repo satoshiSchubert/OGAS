@@ -19,7 +19,6 @@ Timer::Timer() {
 	end_ = std::chrono::system_clock::now();
 }
 
-~Timer::Timer() {};
 
 void Timer::StartTimer(const std::string& start_msg) {
 	std::cout << start_msg << "..." << std::endl;
@@ -42,14 +41,13 @@ float Timer::GetTime() {
 Film::Film() {}
 
 // clean up
-~Film::Film() {}
+
 
 
 
 
 Isect::Isect() {}
 
-~Isect::Isect() {}
 
 
 

@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <chrono>
 #include <iostream>
+#include <string>
 #include "../ext/glm/glm/glm.hpp"
 #include "../core/material.h"
 
@@ -38,7 +39,6 @@ struct Timer {
 public:
 	Timer();
 
-	~Timer();
 
 	void StartTimer(const std::string& start_msg);
 
@@ -55,7 +55,6 @@ struct Film {
 public:
 	Film();
 
-	~Film();
 public:
 	std::vector<glm::vec3> fragment_buffer_;
 };
@@ -63,9 +62,8 @@ public:
 
 struct Isect {
 public:
-	Isect() {}
+	Isect();
 
-	~Isect() {}
 
 public:
 
